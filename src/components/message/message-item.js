@@ -3,10 +3,11 @@ import { StyleSheet, css } from 'aphrodite';
 import { Image } from 'semantic-ui-react';
 
 const MessageItem = props => {
-  const { message } = props;
+  const { message, username } = props;
+  let containerStyle = (message.username === username) ? styles.messageItemOwnUserContainer : styles.messageItemOtherUserContainer
   return(
     <div>
-      <div className={css(styles.messageItemUserContainer)}>
+      <div className={css(containerStyle)}>
         <Image src={message.avatar} avatar />
         <div className={css(styles.messageItemUsername)}>
           {message.username}
@@ -20,7 +21,12 @@ const MessageItem = props => {
 }
 
 const styles = StyleSheet.create({
-  messageItemUserContainer: {},
+  messageItemOwnUserContainer: {
+    backgroundColor: 'red'
+  },
+  messageItemOtherUserContainer: {
+    backgroundColor: 'green'
+  },
   messageItemUsername: {},
   messageItemContentContainer: {}
 })

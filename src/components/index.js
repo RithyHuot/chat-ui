@@ -6,7 +6,6 @@ import logo from '../assets/spotim-logo.jpg'
 import {Container, Image} from 'semantic-ui-react'
 import styled from 'styled-components';
 import MessageList from './message/message-list';
-import MessageForm from './message/message-form';
 
 const Logo = styled.div`
       img{
@@ -31,7 +30,6 @@ class App extends React.PureComponent {
 
       </div>
       <MessageList />
-      <MessageForm />
     </Container>
   }
 }
