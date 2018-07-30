@@ -1,0 +1,1 @@
+export const WEBSOCKET_SERVER = "https://spotim-demo-chat-server.herokuapp.com"
