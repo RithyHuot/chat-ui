@@ -7,20 +7,18 @@ const MessageItem = props => {
   let isAuthor = message.username === username;
   let containerStyle = isAuthor ? styles.messageItemOwnUserContainer : styles.messageItemOtherUserContainer
   return(
-    <Grid celled className={css(containerStyle)}>
-      <Grid.Row>
-        <Grid.Column className={css(styles.messageUserContainer)} width={4}>
-          <Label color='blue' image>
-            <Image src={message.avatar} avatar/>
-            {message.username}
-            <Label.Detail>{ isAuthor ? 'Author' : 'Contributor' }</Label.Detail>
-          </Label>
-        </Grid.Column>
-        <Grid.Column className={css(styles.messageItemContentContainer)} width={11}>
-          {message.text}
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+    <Grid.Row className={css(containerStyle)}>
+      <Grid.Column className={css(styles.messageUserContainer)} width={4}>
+        <Label color='blue' image>
+          <Image src={message.avatar} avatar/>
+          {message.username}
+          <Label.Detail>{ isAuthor ? 'Author' : 'Contributor' }</Label.Detail>
+        </Label>
+      </Grid.Column>
+      <Grid.Column className={css(styles.messageItemContentContainer)} width={11}>
+        {message.text}
+      </Grid.Column>
+    </Grid.Row>
   )
 }
 

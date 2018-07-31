@@ -4,15 +4,14 @@ import io from 'socket.io-client';
 import { WEBSOCKET_SERVER } from '../../util/socket';
 import { AVATARS } from '../../util/avatars';
 import MessageItem from './message-item';
-import { Image, Form, Dropdown } from 'semantic-ui-react';
+import { Image, Form, Dropdown, Grid } from 'semantic-ui-react';
 
 class MessageList extends React.Component {
   state = {
     messages: [],
     username: '',
     messageContent: '',
-    avatar: 'https://spotim-demo-chat-server.herokuapp.com/avatars/001-snorlax.png',
-    loading: false
+    avatar: 'https://spotim-demo-chat-server.herokuapp.com/avatars/001-snorlax.png'
   }
 
   componentDidMount() {
@@ -22,11 +21,12 @@ class MessageList extends React.Component {
 
   processMessages = message => {
     const { messages } = this.state;
-    this.setState({ messages: [...messages, message], loading: false }, this.scrollToBottom);
+    this.setState({ messages: [...messages, message] }, this.scrollToBottom);
   }
 
   scrollToBottom = () => {
-    window.scrollTo(0, document.body.scrollHeight);
+    let messageContainer = document.getElementById('messageContainer');
+    messageContainer.scrollTo(0, messageContainer.scrollHeight);
   }
 
   handleInput = field => {
@@ -52,8 +52,7 @@ class MessageList extends React.Component {
       text: messageContent
     })
     this.setState({
-      messageContent: '',
-      loading: true
+      messageContent: ''
     })
   }
 
@@ -63,15 +62,17 @@ class MessageList extends React.Component {
     return (
       <div className={css(styles.messagesContainer)}>
         <div className={css(styles.messageListContainer)}>
-          {
-            messages.map((message, index) => (
-            <MessageItem
-              username={username}
-              key={`message-id-${index}`}
-              message={message}
-            />
-          ))
-          }
+          <Grid id='messageContainer' celled className={css(styles.messageList)}>
+            {
+              messages.map((message, index) => (
+              <MessageItem
+                username={username}
+                key={`message-id-${index}`}
+                message={message}
+              />
+            ))
+            }
+          </Grid>
         </div>
         <div className={css(styles.messageFormContainer)}>
           <Form 
@@ -119,12 +120,17 @@ class MessageList extends React.Component {
 
 const styles = StyleSheet.create({
   messagesContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between'
+    marginTop: '25px'
   },
   messageListContainer: {
-    height: '60vh'
+    height: '60vh',
+    overflow: 'hidden'
+  },
+  messageList: {
+    height: '100%',
+    width: '100%',
+    overflow: 'auto',
+    boxShadow: 'none'
   },
   messageFormContainer: {
     position: 'relative',
