@@ -1,34 +1,36 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import { Image } from 'semantic-ui-react';
+import { Image, Grid, Label } from 'semantic-ui-react';
 
 const MessageItem = props => {
   const { message, username } = props;
-  let containerStyle = (message.username === username) ? styles.messageItemOwnUserContainer : styles.messageItemOtherUserContainer
+  let isAuthor = message.username === username;
+  let containerStyle = isAuthor ? styles.messageItemOwnUserContainer : styles.messageItemOtherUserContainer
   return(
-    <div>
-      <div className={css(containerStyle)}>
-        <Image src={message.avatar} avatar />
-        <div className={css(styles.messageItemUsername)}>
-          {message.username}
-        </div>
-      </div>
-      <div className={css(styles.messageItemContentContainer)}>
-        {message.text}
-      </div>
-    </div>
+    <Grid celled className={css(containerStyle)}>
+      <Grid.Row>
+        <Grid.Column width={4}>
+          <Label color='blue' image>
+            <Image src={message.avatar} avatar/>
+            {message.username}
+            <Label.Detail>{ isAuthor ? 'Author' : 'Contributor' }</Label.Detail>
+          </Label>
+        </Grid.Column>
+        <Grid.Column className={css(styles.messageItemContentContainer)} width={11}>
+          {message.text}
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
   )
 }
 
 const styles = StyleSheet.create({
   messageItemOwnUserContainer: {
-    backgroundColor: 'red'
+    backgroundColor: '#80DAD6'
   },
   messageItemOtherUserContainer: {
-    backgroundColor: 'green'
-  },
-  messageItemUsername: {},
-  messageItemContentContainer: {}
+    backgroundColor: '#E1F7F7'
+  }
 })
 
 export default MessageItem;

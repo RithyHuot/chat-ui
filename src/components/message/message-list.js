@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite';
 import io from 'socket.io-client';
 import { WEBSOCKET_SERVER } from '../../util/socket';
 import MessageItem from './message-item';
-import { Image } from 'semantic-ui-react';
+import { Image, Form, TextArea, Input } from 'semantic-ui-react';
 
 class MessageList extends React.Component {
   state = {
