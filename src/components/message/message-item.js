@@ -9,7 +9,7 @@ const MessageItem = props => {
   return(
     <Grid celled className={css(containerStyle)}>
       <Grid.Row>
-        <Grid.Column width={4}>
+        <Grid.Column className={css(styles.messageUserContainer)} width={4}>
           <Label color='blue' image>
             <Image src={message.avatar} avatar/>
             {message.username}
@@ -32,6 +32,12 @@ const styles = StyleSheet.create({
   messageItemOtherUserContainer: {
     backgroundColor: '#E1F7F7',
     color: 'black'
+  },
+  messageItemContentContainer: {
+    textAlign: 'left'
+  },
+  messageUserContainer: {
+    textAlign: 'left'
   }
 })
 

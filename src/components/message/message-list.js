@@ -11,7 +11,8 @@ class MessageList extends React.Component {
     messages: [],
     username: '',
     messageContent: '',
-    avatar: 'https://spotim-demo-chat-server.herokuapp.com/avatars/001-snorlax.png'
+    avatar: 'https://spotim-demo-chat-server.herokuapp.com/avatars/001-snorlax.png',
+    loading: false
   }
 
   componentDidMount() {
@@ -21,7 +22,7 @@ class MessageList extends React.Component {
 
   processMessages = message => {
     const { messages } = this.state;
-    this.setState({ messages: [...messages, message] }, this.scrollToBottom);
+    this.setState({ messages: [...messages, message], loading: false }, this.scrollToBottom);
   }
 
   scrollToBottom = () => {
@@ -51,7 +52,8 @@ class MessageList extends React.Component {
       text: messageContent
     })
     this.setState({
-      messageContent: ''
+      messageContent: '',
+      loading: true
     })
   }
 
@@ -72,7 +74,10 @@ class MessageList extends React.Component {
           }
         </div>
         <div className={css(styles.messageFormContainer)}>
-          <Form onSubmit={this.handleSubmit}>
+          <Form 
+            className={css(styles.messageForm)} 
+            onSubmit={this.handleSubmit}
+          >
             <Form.Group>
               <Form.Input
                 required
@@ -97,7 +102,14 @@ class MessageList extends React.Component {
               onChange={this.handleInput('messageContent')}
               placeholder='Type something...'
             />
-            <Form.Button disabled={isInvalid}>SEND</Form.Button>
+            <Form.Button 
+              className={css(styles.messageSendButton)}
+              content='SEND' 
+              disabled={isInvalid}
+              labelPosition='left'
+              icon='send'
+              primary
+            />
           </Form>
         </div>
       </div>
@@ -106,11 +118,26 @@ class MessageList extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  messagesContainer: {},
+  messagesContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
+  messageListContainer: {
+    height: '60vh'
+  },
   messageFormContainer: {
+    position: 'relative',
     width: '100%',
+    height: '23vh'
+  },
+  messageForm: {
     position: 'absolute',
-    bottom: '0'
+    bottom: '10px',
+    width: '100%'
+  },
+  messageSendButton: {
+    textAlign: 'right'
   }
 });
 

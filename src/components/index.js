@@ -27,8 +27,8 @@ class App extends React.PureComponent {
         <Logo>
           <Image size={'tiny'} src={logo}/>
         </Logo>
-      <MessageList />
       </div>
+      <MessageList />
     </Container>
   }
 }
