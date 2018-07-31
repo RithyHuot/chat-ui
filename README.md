@@ -15,7 +15,7 @@ Basic Chat UI build using [React](https://github.com/facebook/react), [Semantic 
 * Navigate to `localhost:3000` in your browser
 
 ## ScreenShot
-![Chat UI Example](./src/assets/chat-ui-example.png)
+![Chat UI Example](./src/assets/screenshots/chat-ui-example.png)
 
 ## Gif
-![Chat UI Example](./src/assets/chat-ui-example.gif)
+![Chat UI Example](./src/assets/screenshots/chat-ui-example.gif)
