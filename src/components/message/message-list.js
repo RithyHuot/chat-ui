@@ -2,15 +2,16 @@ import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import io from 'socket.io-client';
 import { WEBSOCKET_SERVER } from '../../util/socket';
+import { AVATARS } from '../../util/avatars';
 import MessageItem from './message-item';
-import { Image, Form, TextArea, Input } from 'semantic-ui-react';
+import { Image, Form, Dropdown } from 'semantic-ui-react';
 
 class MessageList extends React.Component {
   state = {
     messages: [],
     username: '',
     messageContent: '',
-    avatar: 'https://spotim-demo-chat-server.herokuapp.com/avatars/003-pikachu.png'
+    avatar: 'https://spotim-demo-chat-server.herokuapp.com/avatars/001-snorlax.png'
   }
 
   componentDidMount() {
@@ -28,11 +29,11 @@ class MessageList extends React.Component {
   }
 
   handleInput = field => {
-    return event => (
+    return (event, data) => {
       this.setState({
-        [field]: event.currentTarget.value
+        [field]: data.value
       })
-    );
+    };
   }
 
   isValid = () => {
@@ -71,35 +72,33 @@ class MessageList extends React.Component {
           }
         </div>
         <div className={css(styles.messageFormContainer)}>
-          <div className={css(styles.messageFormUserContainer)}>
-            <Image
-              src={avatar}
-              avatar
-            />
-            <input
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Group>
+              <Form.Input
+                required
+                value={username}
+                onChange={this.handleInput('username')}
+                placeholder='Username'
+              />
+              <Form.Input
+                control={Dropdown}
+                options={AVATARS}
+                search
+                selection
+                value={avatar}
+                onChange={this.handleInput('avatar')}
+                placeholder='Avatar'
+              />
+              <Image src={avatar} avatar/>
+            </Form.Group>
+            <Form.TextArea
               required
-              className={css(styles.messageUsernameInput)}
-              type='text'
-              value={username}
-              onChange={this.handleInput('username')}
-              placeholder='Username'
-            />
-          </div>
-          <form className={css(styles.messageForm)} onSubmit={this.handleSubmit}>
-            <textarea
-              required
-              className={css(styles.messageFormInput)}
               value={messageContent}
               onChange={this.handleInput('messageContent')}
               placeholder='Type something...'
             />
-            <input
-              className={css(styles.messageFormSubmitButton)}
-              disabled={isInvalid}
-              type='submit'
-              value='SEND'
-            />
-          </form>
+            <Form.Button disabled={isInvalid}>SEND</Form.Button>
+          </Form>
         </div>
       </div>
     );
@@ -110,23 +109,9 @@ const styles = StyleSheet.create({
   messagesContainer: {},
   messageFormContainer: {
     width: '100%',
-    display: 'flex',
     position: 'absolute',
     bottom: '0'
-  },
-  messageFormUserContainer: {
-    width: '25%'
-  },
-  messageUsernameInput: {},
-  messageForm: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '75%'
-  },
-  messageFormInput: {
-    minHeight: '150px'
-  },
-  messageFormSubmitButton: {}
+  }
 });
 
 export default MessageList;

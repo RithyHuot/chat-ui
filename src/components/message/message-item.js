@@ -26,10 +26,12 @@ const MessageItem = props => {
 
 const styles = StyleSheet.create({
   messageItemOwnUserContainer: {
-    backgroundColor: '#80DAD6'
+    backgroundColor: '#80DAD6',
+    color: 'black'
   },
   messageItemOtherUserContainer: {
-    backgroundColor: '#E1F7F7'
+    backgroundColor: '#E1F7F7',
+    color: 'black'
   }
 })
 
